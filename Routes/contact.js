@@ -9,9 +9,9 @@ router.get('/', (req, res) => {
 });
 
 router.post("/", (req, res) => {
- const { name, email, message, subject } = req.body;
+ const { username, email, message, subject } = req.body;
   console.log(process.env.EMAIL, process.env.PASS);
-  console.log(email, name, subject, message);
+  console.log(email, username, subject, message);
   console.log(req.body)
 
   let transporter = nodemailer.createTransport({
@@ -29,7 +29,7 @@ router.post("/", (req, res) => {
     from: email,
     to: "seko.n.mpofu@gmail.com",
     subject: `${subject}`,
-    text: `${name} has contacted you please contact them back on ${email} ${message}`,
+    text: `${username} has contacted you please contact them back on ${email} ${message}`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
