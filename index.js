@@ -1,4 +1,4 @@
-// require ("dotenv").config();   
+require ("dotenv").config();   
 
 const express = require("express");
 const app = express();
@@ -29,6 +29,6 @@ app.use("/menu", menuRoute);
 
 
 
-app.listen(process.env.PORT || 1300, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("Backend server is running");
 });
