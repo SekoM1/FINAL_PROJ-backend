@@ -1,4 +1,3 @@
-
 // require("dotenv").config;
 
 const express = require("express");
@@ -12,100 +11,100 @@ const { getUser } = require("../middleware/finders");
 
 // GET all users
 router.get("/", async (req, res) => {
-    try {
+  try {
     const users = await User.find();
     res.json(users);
-    } catch (error) {
+  } catch (error) {
     res.status(500).send({ message: error.message });
-    }
+  }
 });
 
 // GET one user
 router.get("/:id", getUser, (req, res, next) => {
-    res.send(res.user);
+  res.send(res.user);
 });
 // LOGIN user with email + password
 router.patch("/login", async (req, res, next) => {
-    const {email, password } = req.body;
-    const user = await User.findOne({ email });
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
 
-    if (!user) res.status(404).json({ message: "Could not find user" });
-    if (await bcrypt.compare(password, user.password)) {
+  if (!user) res.status(404).json({ message: "Could not find user" });
+  if (await bcrypt.compare(password, user.password)) {
     try {
-        const access_token = jwt.sign(
+      const access_token = jwt.sign(
         JSON.stringify(user),
         process.env.MONGO_PASS
-        );
-        res.status(201).json({ jwt: access_token });
+      );
+      res.status(201).json({ jwt: access_token });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+      res.status(500).json({ message: error.message });
     }
-    } else {
+  } else {
     res
-        .status(400)
-        .json({ message: "Email and password combination do not match" });
-    }
+      .status(400)
+      .json({ message: "Email and password combination do not match" });
+  }
 });
 
 // REGISTER a user
 router.post("/", async (req, res, next) => {
-    const { username, email, contact, password } = req.body;
+  const { username, email, contact, password } = req.body;
 
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(password, salt);
+  const salt = await bcrypt.genSalt();
+  const hashedPassword = await bcrypt.hash(password, salt);
 
-    const user = new User({
+  const user = new User({
     username,
     email,
     contact,
     password: hashedPassword,
-    });
+  });
 
-    try {
+  try {
     const newUser = await user.save();
 
     try {
-        const access_token = jwt.sign(
+      const access_token = jwt.sign(
         JSON.stringify(newUser),
         process.env.MONGO_PASS
-        );
-        res.status(201).json({ jwt: access_token });
+      );
+      res.status(201).json({ jwt: access_token });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+      res.status(500).json({ message: error.message });
     }
-    } catch (error) {
+  } catch (error) {
     res.status(400).json({ message: error.message });
-    }
+  }
 });
 
 // UPDATE a user
 router.put("/:id", getUser, async (req, res, next) => {
-    const { name, email, contact, password } = req.body;
-    if (name) res.user.name = name;
-    if (email) res.user.email = email;
-    if (contact) res.user.contact = contact;
-    if (password) {
+  const { name, email, contact, password } = req.body;
+  if (name) res.user.name = name;
+  if (email) res.user.email = email;
+  if (contact) res.user.contact = contact;
+  if (password) {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
     res.user.password = hashedPassword;
-    }
+  }
 
-    try {
+  try {
     const updatedUser = await res.user.save();
     res.status(201).send(updatedUser);
-    } catch (error) {
+  } catch (error) {
     res.status(400).json({ message: error.message });
-    }
+  }
 });
 
-  // DELETE a user
+// DELETE a user
 router.delete("/:id", getUser, async (req, res, next) => {
-    try {
+  try {
     await res.user.remove();
     res.json({ message: "Deleted user" });
-    } catch (error) {
+  } catch (error) {
     res.status(500).json({ message: error.message });
-    }
+  }
 });
 
-module.exports = router; 
+module.exports = router;

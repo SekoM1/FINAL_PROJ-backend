@@ -18,7 +18,7 @@ async function getMenu(req, res, next) {
   let Menu;
   try {
     Menu = await Menu.findById(req.params.id);
-    
+
     if (!Menu) res.status(404).json({ message: "Could not find post" });
   } catch (error) {
     res.status(500).json({ message: error.message });
