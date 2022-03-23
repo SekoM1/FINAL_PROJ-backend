@@ -23,11 +23,9 @@ mongoose
 app.use(express.json());
 app.use("/users", userRoute);
 app.use("/contact", contactRoute);
-
 app.use("/menu", menuRoute);
-
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Seko's API");
 });
 
 app.listen(process.env.PORT || 3000, () => {
