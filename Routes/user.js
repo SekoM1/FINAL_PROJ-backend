@@ -1,4 +1,4 @@
-// require("dotenv").config;
+// require("dotenv").config();
 
 const express = require("express");
 const router = express.Router();
@@ -47,16 +47,16 @@ router.patch("/login", async (req, res, next) => {
 });
 
 // REGISTER a user
-router.post("/", async (req, res, next) => {
-  const { username, email, contact, password } = req.body;
+router.post("/register", async (req, res, next) => {
+  const { firstname, lastname, email, password } = req.body;
 
   const salt = await bcrypt.genSalt();
   const hashedPassword = await bcrypt.hash(password, salt);
 
   const user = new User({
-    username,
+    firstname,
+    lastname,
     email,
-    contact,
     password: hashedPassword,
   });
 

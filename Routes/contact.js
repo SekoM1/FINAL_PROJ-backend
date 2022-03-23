@@ -28,6 +28,7 @@ router.post("/", (req, res) => {
   const mailOptions = {
     from: email,
     to: "seko.n.mpofu@gmail.com",
+
     text: `${name} has contacted you please contact them back on ${email} ${message}`,
   };
 
