@@ -7,6 +7,7 @@ const menuRoute = require("./Routes/menu");
 const userRoute = require("./Routes/user");
 const contactRoute = require("./Routes/contact");
 const bookingRoute = require("./Routes/booking");
+const customerRoute = require("./Routes/customer");
 
 const authRoute = require("./middleware/auth");
 const bcrypt = require("bcrypt");
@@ -27,6 +28,7 @@ app.use("/users", userRoute);
 app.use("/contact", contactRoute);
 app.use("/menu", menuRoute);
 app.use("/booking", bookingRoute);
+app.use("/customers", customerRoute);
 app.get("/", (req, res) => {
   res.send("Seko's API");
 });

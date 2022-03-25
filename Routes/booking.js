@@ -1,6 +1,7 @@
 const express = require("express");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
+const auth = require('../middleware/auth')
 
 const router = express.Router();
 
@@ -8,12 +9,12 @@ router.get("/", (req, res) => {
   res.send({ msg: "getting reservations" });
 });
 
-router.post("/", (req, res) => {
-  const { fullname,number, email, days, hours, people } = req.body;
-  console.log(process.env.EMAIL, process.env.PASS);
-  console.log(email, fullname,number, days, hours, people);
-  console.log(req.body);
-
+router.post("/", auth, (req, res) => {
+//   const { fullname,number, email, days, hours, people } = req.body;
+//   console.log(process.env.EMAIL, process.env.PASS);
+//   console.log(email, fullname,number, days, hours, people);
+//   console.log(req.body);
+    console.log(req.user)
   let transporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
@@ -26,12 +27,13 @@ router.post("/", (req, res) => {
   });
 
   const mailOptions = {
-    from: email,
-    to: "seko.n.mpofu@gmail.com" ,
-    cc: "${email}",
+    from: process.env.EMAIL,
+    to: req.user.email && process.env.EMAIL,
+    subject: "LyfStyl Booking Confirmation",
+    
 
-    text: `CONFIMATION for the reservation of ${fullname} with contact number: ${number}.
-  Table is reserved for ${people} people on ${days} at ${hours}. `,
+    text: `CONFIMATION for the reservation of ${req.user.firstname} with contact number: ${req.body.number}.
+  Table is reserved for ${req.body.people} people on ${req.body.days} at ${req.body.hours}. `,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
