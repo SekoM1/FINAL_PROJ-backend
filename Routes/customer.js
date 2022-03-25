@@ -1,4 +1,9 @@
-const express = require('express');
+require("dotenv").config();
+
+const express = require("express");
+const Customers = require("../models/Customers");
+const auth = require("../middleware/auth");
+const { getCustomers } = require("../middleware/finders");
 
 const router = express.Router();
 
@@ -24,6 +29,6 @@ testimony: "“My favorite restaurant! Always good food and good service! Can't 
 id:4,
 name: "Siyanda MyBurgh",
 image: "https://i.postimg.cc/MTGTqrsj/Godwin.jpg",
-testimony: "“Wow, amazing menu with consistently great food and service. You always feel welcome and the ambiance is relaxing. I've been eating here for over 2 years. Love this place.”" },
+testimony: "“Wow, amazing Customers with consistently great food and service. You always feel welcome and the ambiance is relaxing. I've been eating here for over 2 years. Love this place.”" },
 ];
 module.exports = router;

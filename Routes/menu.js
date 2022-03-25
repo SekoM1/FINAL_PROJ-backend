@@ -24,7 +24,7 @@ router.get("/:id", [auth, getMenu], (req, res, next) => {
 
 // CREATE a menu
 router.post("/add", auth, async (req, res, next) => {
-  const { title, category, description, img, price, created_by } = req.body;
+  const { title, category, description, img, price } = req.body;
   console.log(title, category, description, img, price);
 
   let menu;

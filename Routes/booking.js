@@ -5,13 +5,13 @@ require("dotenv").config();
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.send({ msg: "getting contacts" });
+  res.send({ msg: "getting reservations" });
 });
 
 router.post("/", (req, res) => {
-  const { firstname,lastname, email, message } = req.body;
+  const { fullname,number, email, days, hours, people } = req.body;
   console.log(process.env.EMAIL, process.env.PASS);
-  console.log(email, firstname,lastname, message);
+  console.log(email, fullname,number, days, hours, people);
   console.log(req.body);
 
   let transporter = nodemailer.createTransport({
@@ -28,9 +28,10 @@ router.post("/", (req, res) => {
   const mailOptions = {
     from: email,
     to: "seko.n.mpofu@gmail.com" ,
-    cc: "jamyleejeffries15@gmail.com",
+    cc: "${email}",
 
-    text: `${firstname} has contacted you:${message} ,please contact them back on ${email} `,
+    text: `CONFIMATION for the reservation of ${fullname} with contact number: ${number}.
+  Table is reserved for ${people} people on ${days} at ${hours}. `,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
