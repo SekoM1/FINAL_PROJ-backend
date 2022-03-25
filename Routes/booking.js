@@ -28,11 +28,11 @@ router.post("/", auth, (req, res) => {
 
   const mailOptions = {
     from: process.env.EMAIL,
-    to: req.user.email && process.env.EMAIL,
+    to: req.body.email && process.env.EMAIL,
     subject: "LyfStyl Booking Confirmation",
     
 
-    text: `CONFIMATION for the reservation of ${req.user.firstname} with contact number: ${req.body.number}.
+    text: `CONFIMATION for the reservation of ${req.body.firstname} with contact number: ${req.body.number}.
   Table is reserved for ${req.body.people} people on ${req.body.days} at ${req.body.hours}. `,
   };
 
