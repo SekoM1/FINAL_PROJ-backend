@@ -9,7 +9,7 @@ const router = express.Router();
 // GET all menu
 router.get("/", auth, async (req, res) => {
   try {
-    const menu = await menu.find();
+    const menu = await Menu.find();
     res.status(201).send(menu);
   } catch (error) {
     res.status(500).send({ message: error.message });
@@ -24,24 +24,24 @@ router.get("/:id", [auth, getMenu], (req, res, next) => {
 
 // CREATE a menu
 router.post("/add", auth, async (req, res, next) => {
-  const { title, category, description, img, price } = req.body;
-  console.log(title, category, description, img, price);
+  const { title, category, desc, img, price } = req.body;
+  console.log(title, category, desc, img, price);
 
   let menu;
 
   img
-    ? (menu = new menu({
+    ? (menu = new Menu({
         title,
         category,
-        description,
+        desc,
         img,
         price,
         created_by: req.user._id,
       }))
-    : (menu = new menu({
+    : (menu = new Menu({
         title,
         category,
-        description,
+        desc,
         img,
         price,
         created_by: req.user._id,
@@ -62,10 +62,10 @@ router.put("/:id", [auth, getMenu], async (req, res, next) => {
       .status(400)
       .json({ message: "You do not have the permission to update this menu" });
 
-  const { title, category, description, img, price } = req.body;
+  const { title, category, desc, img, price } = req.body;
   if (title) res.menu.title = title;
   if (category) res.menu.category = category;
-  if (description) res.menu.description = description;
+  if (desc) res.menu.desc = desc;
   if (img) res.menu.img = img;
   if (price) res.menu.price = price;
 
