@@ -5,6 +5,7 @@ const nodemailer = require("nodemailer");
 const { authenticateToken } = require('../middleware/auth')
 const router = express.Router();
 
+
 router.get("/", (req, res) => {
   res.send({ msg: "getting reservations" });
 });

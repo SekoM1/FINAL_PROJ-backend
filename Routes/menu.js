@@ -1,4 +1,4 @@
-require("dotenv").config();
+// require("dotenv").config();
 const express = require("express");
 const Menu = require("../models/Menu");
 const { authenticateToken } = require("../middleware/auth");
@@ -78,11 +78,8 @@ router.put("/:id", [authenticateToken, getMenu], async (req, res, next) => {
 });
 
 // DELETE a menu
-router.delete("/:id", [authenticateToken, getMenu], async (req, res, next) => {
-  if (req.user._id !== res.menu.created_by)
-    res
-      .status(400)
-      .json({ message: "You do not have the permission to delete this menu" });
+router.delete("/:id", [authenticateToken, getMenu], async (req, res) => {
+  
   try {
     await res.menu.remove();
     res.json({ message: "Deleted menu" });
