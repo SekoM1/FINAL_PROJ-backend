@@ -7,7 +7,7 @@ const { getMenu } = require("../middleware/finders");
 const router = express.Router();
 
 // GET all menu
-router.get("/", authenticateToken, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const menu = await Menu.find();
     res.status(201).send(menu);
