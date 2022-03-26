@@ -1,4 +1,4 @@
-require ("dotenv").config();
+// require ("dotenv").config();
 
 const express = require("express");
 const app = express();
@@ -11,10 +11,10 @@ const customerRoute = require("./Routes/customer");
 
 const authRoute = require("./middleware/auth");
 const bcrypt = require("bcrypt");
-const cors = require('cors')
+const cors = require("cors");
 
 // app.post()
-app.use(cors())
+app.use(cors());
 mongoose
   .connect(process.env.MONGO_URL)
 

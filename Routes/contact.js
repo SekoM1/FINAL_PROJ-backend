@@ -1,6 +1,6 @@
 const express = require("express");
 const nodemailer = require("nodemailer");
-require("dotenv").config();
+// require("dotenv").config();
 
 const router = express.Router();
 
@@ -27,7 +27,6 @@ router.post("/", (req, res) => {
   const mailOptions = {
     from: email,
     to: "seko.n.mpofu@gmail.com",
-
     text: `${firstname} ${lastname} has contacted you:${message} ,please contact them back on ${email} `,
   };
 
