@@ -17,7 +17,7 @@ router.post("/", (req, res) => {
     service: "gmail",
     host: "smtp.gmail.com",
     // port: 1300,
-    secure: true,
+    // secure: true,
     auth: {
       user: process.env.EMAIL,
       pass: process.env.PASS,
