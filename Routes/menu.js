@@ -1,7 +1,7 @@
-// require("dotenv").config();
+require("dotenv").config();
 const express = require("express");
 const Menu = require("../models/Menu");
-const { authenticateToken, verifyAdmin } = require("../middleware/auth");
+const { authenticateToken } = require("../middleware/auth");
 const { getMenu } = require("../middleware/finders");
 
 const router = express.Router();
@@ -23,7 +23,7 @@ router.get("/:id", [authenticateToken, getMenu], (req, res, next) => {
 });
 
 // CREATE a menu
-router.post("/add", verifyAdmin, async (req, res, next) => {
+router.post("/add", authenticateToken, async (req, res, next) => {
   const { title, category, desc, img, price } = req.body;
   console.log(title, category, desc, img, price);
 
@@ -56,7 +56,7 @@ router.post("/add", verifyAdmin, async (req, res, next) => {
 });
 
 // UPDATE a menu
-router.put("/:id", [verifyAdmin, getMenu], async (req, res, next) => {
+router.put("/:id", [authenticateToken, getMenu], async (req, res, next) => {
   if (req.user._id !== res.menu.created_by)
     res
       .status(400)
@@ -78,7 +78,7 @@ router.put("/:id", [verifyAdmin, getMenu], async (req, res, next) => {
 });
 
 // DELETE a menu
-router.delete("/:id", [verifyAdmin, getMenu], async (req, res, next) => {
+router.delete("/:id", [authenticateToken, getMenu], async (req, res, next) => {
   if (req.user._id !== res.menu.created_by)
     res
       .status(400)
