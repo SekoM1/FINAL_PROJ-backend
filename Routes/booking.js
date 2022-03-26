@@ -2,14 +2,14 @@
 
 const express = require("express");
 const nodemailer = require("nodemailer");
-const auth = require('../middleware/auth')
+const { authenticateToken } = require('../middleware/auth')
 const router = express.Router();
 
 router.get("/", (req, res) => {
   res.send({ msg: "getting reservations" });
 });
 
-router.post("/", auth, (req, res) => {
+router.post("/", authenticateToken, (req, res) => {
 //   const { fullname,number, email, days, hours, people } = req.body;
 //   console.log(process.env.EMAIL, process.env.PASS);
 //   console.log(email, fullname,number, days, hours, people);
@@ -20,7 +20,7 @@ router.post("/", auth, (req, res) => {
     host: "smtp.gmail.com",
     port: 1300,
     secure: true,
-    auth: {
+    authenticateToken: {
       user: process.env.EMAIL,
       pass: process.env.PASS,
     },
