@@ -1,8 +1,8 @@
+// require("dotenv").config();
+
 const express = require("express");
 const nodemailer = require("nodemailer");
-// require("dotenv").config();
 const auth = require('../middleware/auth')
-
 const router = express.Router();
 
 router.get("/", (req, res) => {
