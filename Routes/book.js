@@ -5,7 +5,7 @@ const nodemailer = require("nodemailer");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-    res.send({ msg: "booking page" });
+    res.send("booking page" );
   });
 
 router.post('/',(req,res) =>{ 

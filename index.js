@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const menuRoute = require("./Routes/menu");
 const userRoute = require("./Routes/user");
 const contactRoute = require("./Routes/contact");
-const bookingRoute = require("./Routes/booking");
 const bookRoute = require("./Routes/book");
 const customerRoute = require("./Routes/customer");
 
@@ -28,7 +27,6 @@ app.use(express.json());
 app.use("/users", userRoute);
 app.use("/contact", contactRoute);
 app.use("/menu", menuRoute);
-app.use("/booking", bookingRoute);
 app.use("/book", bookRoute);
 app.use("/customers", customerRoute);
 app.get("/", (req, res) => {
