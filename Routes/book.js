@@ -4,6 +4,10 @@ const express = require("express");
 const nodemailer = require("nodemailer");
 const router = express.Router();
 
+router.get("/", (req, res) => {
+    res.send({ msg: "booking page" });
+  });
+
 router.post('/',(req,res) =>{ 
     const{firstname,number, email, days, hours, people} =req.body;
     let transporter = nodemailer.createTransport({
